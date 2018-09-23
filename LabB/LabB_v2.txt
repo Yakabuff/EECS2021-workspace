@@ -1,0 +1,40 @@
+
+
+ORG 96
+DD 12,3,11,0
+addi x1, x0, 96
+
+addi x2, x0, 15 //y
+addi x3, x0, 6 //z
+addi x4, x0, -5 //c
+
+
+ld x5, 0(x1) //D
+ld x6, 8(x1) //L
+ld x7, 16(x1) //M
+
+addi x8, x0, 0 //X
+
+add x9, x2, x7 //Y + M
+sub x10, x6, x5 //L -D
+add x11, x3 , x4 // Z + C
+
+add x8, x0, x9
+sub x8, x8, x10
+add x8, x8, x11
+sub x8, x8, x5
+
+sd x8, 24(x1)
+
+
+
+
+
+
+
+
+
+
+
+
+

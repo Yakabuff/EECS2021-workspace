@@ -1,0 +1,22 @@
+addi x18, x0, 15 //y
+addi x19, x0, 6 //z
+addi x20, x0, -5 //c
+addi x21, x0, 12 //d
+addi x22, x0, 3 //L
+addi x23, x0, 11 //M
+addi x24, x0, 0  // x
+
+add x25, x18, x23 //Y+M
+sub x26, x22, x21 //L-D
+add x27, x19, x20 //z+c
+
+addi x24, x25, 0  // x = Y+M 
+sub x24, x24, x26 // x = (y+M) - (L-D)
+add x24, x24, x27 // x = (Y+M) - (L-D) + (Z+C)
+sub x24, x24, x21 // x = (Y+M) - (L-D) + (Z + C) -D
+
+
+
+
+
+
