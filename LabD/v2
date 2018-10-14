@@ -1,0 +1,52 @@
+main:
+	addi sp, sp, 1600          #initialize the stack pointer to 1600
+	
+	
+	addi x8, x0, 3			#store 3 into x8 (preserved)
+	ecall x5, x3, 5        #get the input (preserved) (i)
+
+	addi sp, sp, -24            #make room to store i and 3
+
+	sd x5, 0(sp)			#store i into stack	
+	sd x8, 8(sp)       #store 3 into stack
+	sd x11, 16(sp)		   
+
+	add x10, x0, x5 		#set return value to x10	
+
+	jal x1, rec_func			#jump to rec_func
+
+	ld x8, 0(sp)    #restore i to original value
+	ld x5, 8(sp)		#restore 3 to original value
+
+	addi sp, sp, 16             #pop the stack
+
+	ecall x0, x5, 0            #output the input
+	ecall x0, x10, 0           #output the result
+	
+ORG 96
+rec_func:
+bge x8, x5, IF    # i<= 3
+blt x8, 	x5, ELSE		# i > 3 go to else
+
+ld x1, 0(sp)               #restore x1
+addi sp, sp, 8             #pop the stack
+
+jalr x0, 0(x1)  #return back to caller
+
+IF:
+addi x10, x0, 1
+jalr x0, 0(x1) # return back to caller
+
+ELSE:
+addi x5,x5,-2  		# x5 i= i-2
+jal x1, rec_func		#rec_func(i-2)  
+addi x6, x0, 2  # set x6 (temp) to 2 for multiplicaiton
+mul x10, x10, x6 		# 2* rec_func(i-2)
+addi x10, x10, 1		#(2* rec_func(i-2)) + 1
+
+jalr x0, 0(x1)  #return back to caller
+
+
+
+
+	
