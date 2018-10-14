@@ -1,0 +1,25 @@
+DC "Input A"
+DC "Input B"
+DC "Input C"
+
+ld x3, 0(x0)           #load the prompt for input A
+ld x4, 8(x0)           #load the prompt for input B
+ld x5, 16(x0)          #load the prompt for input C
+
+ecall x6, x3, 5        #get the input for A
+ecall x7, x4, 5        #get the input for B
+ecall x8, x5, 5        #get the input for C
+
+bge x7, x6, ELSE 			#if !(A>B), else   (B greater or equal A)
+addi x9, x0, 5			#set x9 to 5 to compare with c
+bne x8, x9, ELSE  			#if !(c == 5), else
+			
+addi x1, x0, 1			#set y to 1
+addi x2, x0, 2			#set z to 2
+beq x0, x0, EXIT  			# EXIT once both conditions are true
+
+ELSE:
+addi x1, x0, 0    # set y to 0
+addi x2, x0, 0    # set z to 0
+
+EXIT:

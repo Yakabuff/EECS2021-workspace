@@ -1,0 +1,23 @@
+DD 3                   #store the value of A
+DC "int"               #store the prompt for the input integer
+ld x3, 0(x0)           #load value of A to x3
+ld x5, 8(x0)           #load the prompt
+ecall x4, x5, 5        #get the input for B
+
+blt x4, x3, IF
+blt x3, x4, ELSEIF
+beq x3, x4, ELSE
+
+
+IF:
+addi x1, x0, 1 # y = 1
+addi x2, x0, 2 # z = 2
+beq x0, x0, EXIT        
+
+ELSEIF: addi x1, x0, 5 # y = 5
+	addi x2, x0, 5 # z = 5
+	beq x0, x0, EXIT
+ELSE: addi x1, x0, 0 # y = 0
+      addi x2, x0, 0 # z = 0
+      beq x0, x0, EXIT 
+EXIT:
